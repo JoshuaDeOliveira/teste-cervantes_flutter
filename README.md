@@ -1,7 +1,24 @@
-# teste-cervantes_flutter
-Sistema de gerenciamento e agendamento de salas desenvolvido em Flutter com SQLite, incluindo validação de conflitos de horários e registro de operações. Esse sistema foi desenvolvido para fins de teste tecnico para a cervantes tecnologia
+## 📱 Sistema de Agendamento de Salas
 
-# Tecnologias
-* Flutter
-* Dart
-* SQLite
+Um aplicativo para gerenciar agendamentos de salas em espaços compartilhados (coworking).
+
+## 📋 Sobre o Projeto
+
+O sistema permite cadastrar salas e criar agendamentos com validações de datas, evitando conflitos de horários.
+
+Todas as validações são feitas no banco de dados para garantir integridade dos dados.
+
+## 🛠️ Tecnologias Usadas
+
+Flutter - Framework para criar o aplicativo mobile
+Dart - Linguagem de programação do Flutter
+SQLite - Banco de dados local do aplicativo
+SQL - Linguagem para criar tabelas e triggers
+
+## 📦 Funcionalidades
+
+✅ Cadastro de salas
+✅ Agendamento de salas por data/hora
+✅ Validações de conflito de horários
+✅ Log de operações (INSERT, UPDATE, DELETE)
+✅ Impede exclusão de salas com agendamentos futuros
