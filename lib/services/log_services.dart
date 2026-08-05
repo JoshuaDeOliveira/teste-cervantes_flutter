@@ -1,13 +1,25 @@
 import 'db_service.dart';
 
+//Mostrar os dados do log de operações
+
 class LogService {
-  Future<int> countOperacoes(String tabela, String tipo) async {
+  Future<List<Map<String, dynamic>>> listarLog() async {
     final db = await DBService.getDatabase();
     final resultado = await db.query(
       'log_operacoes',
-      where: 'nome_tabela = ? AND tipo_operacao = ?',
-      whereArgs: [tabela, tipo],
+      orderBy: 'data_operacao DESC',
     );
-    return resultado.length;
+    return resultado;
+  }
+
+  Future<List<Map<String, dynamic>>> listarLogPorTabela(String tabela) async {
+    final db = await DBService.getDatabase();
+    final resultado = await db.query(
+      'log_operacoes',
+      where: 'nome_tabela = ?',
+      whereArgs: [tabela],
+      orderBy: 'data_operacao DESC',
+    );
+    return resultado;
   }
 }

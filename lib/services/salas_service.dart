@@ -1,7 +1,7 @@
 import '../sala_dados.dart';
 import 'db_service.dart';
 
-/*Features para os dados das Salas*/
+//Features para os dados das Salas
 
 class SalasService {
   Future<int> criarSala(Sala NovaSala) async {
