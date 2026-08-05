@@ -68,3 +68,8 @@ macos/Flutter/GeneratedPluginRegistrant.swift
 # Linux
 linux/flutter/generated_plugin_registrant.cc
 linux/flutter/generated_plugins.cmake
+
+# Testes
+
+Testes/testesServices.Dart
+Testes/TestesGerais.Dart
