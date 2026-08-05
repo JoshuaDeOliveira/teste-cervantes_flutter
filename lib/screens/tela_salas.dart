@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../services/db_service.dart';
 import '../data/sala_dados.dart';
 import '../services/salas_service.dart';
+import '../helpers/error_handler.dart';
 
 class SalasScreen extends StatefulWidget {
   const SalasScreen({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class _SalasScreenState extends State<SalasScreen> {
       });
     } catch (e) {
       setState(() => _isLoading = false);
-      _mostrarErro('Erro ao carregar salas: $e');
+      _mostrarErro(ErrorHandler.extrairMensagemErro(e));
     }
   }
 
@@ -75,11 +75,6 @@ class _SalasScreenState extends State<SalasScreen> {
           ),
           ElevatedButton(
             onPressed: () async {
-              if (controller.text.trim().isEmpty) {
-                _mostrarErro('Nome não pode estar vazio');
-                return;
-              }
-
               try {
                 final novaSala = Sala(nomeSala: controller.text.trim());
                 await _salasService.criarSala(novaSala);
@@ -87,7 +82,7 @@ class _SalasScreenState extends State<SalasScreen> {
                 _carregarSalas();
                 _mostrarSucesso('Sala criada com sucesso!');
               } catch (e) {
-                _mostrarErro('Erro: $e');
+                _mostrarErro(ErrorHandler.extrairMensagemErro(e));
               }
             },
             child: const Text('Criar'),
@@ -118,11 +113,6 @@ class _SalasScreenState extends State<SalasScreen> {
           ),
           ElevatedButton(
             onPressed: () async {
-              if (controller.text.trim().isEmpty) {
-                _mostrarErro('Nome não pode estar vazio');
-                return;
-              }
-
               try {
                 final salaAtualizada = Sala(
                   id: sala.id,
@@ -133,7 +123,7 @@ class _SalasScreenState extends State<SalasScreen> {
                 _carregarSalas();
                 _mostrarSucesso('Sala atualizada!');
               } catch (e) {
-                _mostrarErro('Erro: $e');
+                _mostrarErro(ErrorHandler.extrairMensagemErro(e));
               }
             },
             child: const Text('Salvar'),
