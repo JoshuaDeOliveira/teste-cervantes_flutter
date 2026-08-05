@@ -1,23 +1,21 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+/*Criação e Inicialização do banco de dados*/
+
 class DatabaseService {
-  static final DatabaseService _instance = DatabaseService._internal();
   static Database? _database;
-
-  factory DatabaseService() {
-    return _instance;
-  }
-
-  DatabaseService._internal();
-
-  Future<Database> get database async {
-    if (_database != null) return _database!;
+  
+  static Future<Database> getDatabase() async {
+    if (_database != null) {
+      return _database!;
+    }
+    
     _database = await _initDatabase();
     return _database!;
   }
 
-  Future<Database> _initDatabase() async {
+  static Future<Database> _initDatabase() async {
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, 'agendamentos.db');
 
@@ -28,7 +26,7 @@ class DatabaseService {
     );
   }
 
-  Future<void> _onCreate(Database db, int version) async {
+  static Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
       PRAGMA foreign_keys = ON;
 
