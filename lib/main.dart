@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'screens/tela_salas.dart';
 import 'screens/tela_agendamentos.dart';
+import 'screens/tela_log.dart';
 
 void main() {
   databaseFactory = databaseFactoryFfi;
@@ -37,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _screens = [
     const SalasScreen(),
     const AgendamentosScreen(),
+    const TelaLog(),
   ];
 
   @override
@@ -62,6 +64,10 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
             label: 'Agendamentos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),  // ← ADICIONA AQUI
+            label: 'Logs',
           ),
         ],
       ),

@@ -6,6 +6,8 @@ import '../services/salas_service.dart';
 import '../services/agendamento_services.dart';
 import '../helpers/error_handler.dart';
 
+//Configuração para a tela de agendamentos
+
 class AgendamentosScreen extends StatefulWidget {
   const AgendamentosScreen({Key? key}) : super(key: key);
 

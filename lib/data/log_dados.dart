@@ -1,3 +1,5 @@
+//Base para os tados dos logs das operações feitas no banco ou da aplicação no banco
+
 class LogOperacao {
   final int? id;
   final String nomeTabela;

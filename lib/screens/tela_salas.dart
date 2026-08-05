@@ -3,6 +3,8 @@ import '../data/sala_dados.dart';
 import '../services/salas_service.dart';
 import '../helpers/error_handler.dart';
 
+//Configurações para a tela da sala
+
 class SalasScreen extends StatefulWidget {
   const SalasScreen({Key? key}) : super(key: key);
 
