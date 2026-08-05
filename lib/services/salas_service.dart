@@ -1,4 +1,4 @@
-import '../sala_dados.dart';
+import '../data/sala_dados.dart';
 import 'db_service.dart';
 
 //Features para os dados das Salas

@@ -1,4 +1,4 @@
-import '../agendamento_dados.dart';
+import '../data/agendamento_dados.dart';
 import 'db_service.dart';
 
 //Features para os dados dos Agendamentos
