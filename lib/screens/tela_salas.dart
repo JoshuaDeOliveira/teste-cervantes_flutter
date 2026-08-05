@@ -137,7 +137,7 @@ class _SalasScreenState extends State<SalasScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Confirmar Exclusão'),
+        title: const Text('Tem certeza?'),
         content: Text('Deseja deletar a sala "${sala.nomeSala}"?'),
         actions: [
           TextButton(
@@ -152,7 +152,7 @@ class _SalasScreenState extends State<SalasScreen> {
                 _carregarSalas();
                 _mostrarSucesso('Sala deletada!');
               } catch (e) {
-                _mostrarErro('Erro: $e');
+                _mostrarErro(ErrorHandler.extrairMensagemErro(e));
               }
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
@@ -173,9 +173,9 @@ class _SalasScreenState extends State<SalasScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.meeting_room, size: 64, color: Colors.grey),
+                      Icon(Icons.meeting_room, size: 64, color: Colors.black),
                       const SizedBox(height: 16),
-                      const Text('Nenhuma sala cadastrada'),
+                      const Text('Nenhuma sala cadastrada no sistema!'),
                       const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: _abrirDialogCriar,
