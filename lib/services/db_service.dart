@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 
 /*Criação e Inicialização do banco de dados*/
 
-class DatabaseService {
+class DBService {
   static Database? _database;
   
   static Future<Database> getDatabase() async {

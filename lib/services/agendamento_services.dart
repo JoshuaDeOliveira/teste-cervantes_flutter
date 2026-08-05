@@ -6,18 +6,18 @@ import 'db_service.dart';
 class AgendamentosService {
   
   Future<int> criarAgendamento(Agendamento agendamento) async {
-    final db = await DatabaseService.getDatabase();
+    final db = await DBService.getDatabase();
     return await db.insert('agendamentos', agendamento.toMap());
   }
 
   Future<List<Agendamento>> listarAgendamentos() async {
-    final db = await DatabaseService.getDatabase();
+    final db = await DBService.getDatabase();
     final resultado = await db.query('agendamentos', orderBy: 'data_inicio ASC');
     return resultado.map((map) => Agendamento.fromMap(map)).toList();
   }
 
   Future<List<Agendamento>> listarAgendamentosPorSala(int salaId) async {
-    final db = await DatabaseService.getDatabase();
+    final db = await DBService.getDatabase();
     final resultado = await db.query(
       'agendamentos',
       where: 'qual_sala = ?',
@@ -28,14 +28,14 @@ class AgendamentosService {
   }
 
   Future<Agendamento?> obterAgendamento(int id) async {
-    final db = await DatabaseService.getDatabase();
+    final db = await DBService.getDatabase();
     final resultado = await db.query('agendamentos', where: 'id = ?', whereArgs: [id]);
     if (resultado.isEmpty) return null;
     return Agendamento.fromMap(resultado.first);
   }
 
   Future<int> atualizarAgendamento(Agendamento agendamento) async {
-    final db = await DatabaseService.getDatabase();
+    final db = await DBService.getDatabase();
     return await db.update(
       'agendamentos',
       agendamento.toMap(),
@@ -45,7 +45,7 @@ class AgendamentosService {
   }
 
   Future<int> deletarAgendamento(int id) async {
-    final db = await DatabaseService.getDatabase();
+    final db = await DBService.getDatabase();
     return await db.delete('agendamentos', where: 'id = ?', whereArgs: [id]);
   }
 }
