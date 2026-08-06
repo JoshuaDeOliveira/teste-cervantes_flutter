@@ -10,15 +10,14 @@ Todas as validações são feitas no banco de dados para garantir integridade do
 
 ## 🛠️ Tecnologias Usadas
 
-Flutter - Framework para criar o aplicativo mobile
-Dart - Linguagem de programação do Flutter
-SQLite - Banco de dados local do aplicativo
-SQL - Linguagem para criar tabelas e triggers
+* Flutter - Framework para criar o aplicativo mobile
+* Dart - Linguagem de programação do Flutter
+* SQLite - Banco de dados local do aplicativo
 
 ## 📦 Funcionalidades
 
-✅ Cadastro de salas
-✅ Agendamento de salas por data/hora
-✅ Validações de conflito de horários
-✅ Log de operações (INSERT, UPDATE, DELETE)
-✅ Impede exclusão de salas com agendamentos futuros
+* ✅ Cadastro de salas
+* ✅ Agendamento de salas por data/hora
+* ✅ Validações de conflito de horários
+* ✅ Log de operações (INSERT, UPDATE, DELETE)
+* ✅ Impede exclusão de salas com agendamentos futuros
