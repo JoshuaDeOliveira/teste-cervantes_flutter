@@ -1,24 +1,58 @@
-## 📱 Sistema de Agendamento de Salas
+# Sistema de Agendamentos de Salas - Coworking
 
-Um aplicativo para gerenciar agendamentos de salas em espaços compartilhados (coworking).
+Um aplicativo multiplataforma para gerenciamento de salas e agendamentos em espaços de coworking, desenvolvido com **Flutter** e **SQLite**, com persistência robusta de dados e sistema completo de auditoria.
 
-## 📋 Sobre o Projeto
+## 📋 Funcionalidades
 
-O sistema permite cadastrar salas e criar agendamentos com validações de datas, evitando conflitos de horários.
+### Gerenciamento de Salas
+- ✅ Criar novas salas com validação de nome único
+- ✅ Listar todas as salas cadastradas
+- ✅ Editar informações de salas
+- ✅ Deletar salas (com proteção contra exclusão de salas com agendamentos futuros)
 
-Todas as validações são feitas no banco de dados para garantir integridade dos dados.
+### Gerenciamento de Agendamentos
+- ✅ Agendar salas com data e horário de início/fim
+- ✅ Visualizar todos os agendamentos
+- ✅ Editar agendamentos existentes
+- ✅ Cancelar agendamentos
+- ✅ Validação de sobreposição de horários
+- ✅ Histórico de operações auditado
 
-## 🛠️ Tecnologias Usadas
+### Sistema de Log
+- ✅ Registro automático de todas as operações (INSERT, UPDATE, DELETE)
+- ✅ Rastreamento completo de modificações no banco de dados
+- ✅ Timestamps precisos de cada operação
+- ✅ Informações sobre tabela afetada e tipo de operação
 
-Flutter - Framework para criar o aplicativo mobile
-Dart - Linguagem de programação do Flutter
-SQLite - Banco de dados local do aplicativo
-SQL - Linguagem para criar tabelas e triggers
+## 🛠️ Tecnologias Utilizadas
 
-## 📦 Funcionalidades
+- **Flutter 3.x** - Framework multiplataforma
+- **Dart** - Linguagem de programação
+- **SQLite** - Banco de dados local
+- **Material Design 3** - Design System
 
-✅ Cadastro de salas
-✅ Agendamento de salas por data/hora
-✅ Validações de conflito de horários
-✅ Log de operações (INSERT, UPDATE, DELETE)
-✅ Impede exclusão de salas com agendamentos futuros
+## 📦 Requisitos
+
+- Flutter SDK 3.0 ou superior
+- Dart SDK 3.0 ou superior
+- Windows, macOS ou Linux
+
+## 🚀 Como Executar
+ 
+### 1. Clone o repositório
+```bash
+git clone https://github.com/seu-usuario/flutter-agendamentos.git
+cd flutter-agendamentos
+```
+ 
+### 2. Instale as dependências
+```bash
+flutter pub get
+```
+ 
+### 3. Execute a aplicação
+```bash
+flutter run -d windows  # Para Windows Desktop
+flutter run -d macos    # Para macOS Desktop
+flutter run -d linux    # Para Linux Desktop
+```
