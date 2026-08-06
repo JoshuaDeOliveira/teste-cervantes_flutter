@@ -6,7 +6,7 @@ import '../services/salas_service.dart';
 import '../services/agendamento_services.dart';
 import '../helpers/error_handler.dart';
 
-//Configuração para a tela de agendamentos
+// Configuração para a tela de agendamentos
 
 class AgendamentosScreen extends StatefulWidget {
   const AgendamentosScreen({Key? key}) : super(key: key);
@@ -202,11 +202,142 @@ class _AgendamentosScreenState extends State<AgendamentosScreen> {
     );
   }
 
+  void _abrirDialogEditar(Agendamento agendamento) {
+    int? salaId = agendamento.qualSala;
+    DateTime? dataInicio = DateTime.parse(agendamento.dataInicio);
+    DateTime? dataFim = DateTime.parse(agendamento.dataFim);
+
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          title: const Text('Editar Agendamento'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Dropdown de salas
+                DropdownButtonFormField<int>(
+                  value: salaId,
+                  hint: const Text('Selecione uma sala'),
+                  items: _salas
+                      .map((sala) => DropdownMenuItem(
+                            value: sala.id,
+                            child: Text(sala.nomeSala),
+                          ))
+                      .toList(),
+                  onChanged: (value) => setState(() => salaId = value),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Sala',
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // Data e Hora Início
+                ListTile(
+                  title: const Text('Data/Hora Início'),
+                  subtitle: Text(dataInicio == null
+                      ? 'Não selecionado'
+                      : DateFormat('dd/MM/yyyy HH:mm').format(dataInicio!)),
+                  onTap: () async {
+                    final date = await showDatePicker(
+                      context: context,
+                      initialDate: dataInicio ?? DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(Duration(days: 365)),
+                    );
+                    if (date != null) {
+                      final time = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.fromDateTime(dataInicio ?? DateTime.now()),
+                      );
+                      if (time != null) {
+                        setState(() {
+                          dataInicio = DateTime(
+                            date.year,
+                            date.month,
+                            date.day,
+                            time.hour,
+                            time.minute,
+                          );
+                        });
+                      }
+                    }
+                  },
+                ),
+                const SizedBox(height: 16),
+
+                // Data e Hora Fim
+                ListTile(
+                  title: const Text('Data/Hora Fim'),
+                  subtitle: Text(dataFim == null
+                      ? 'Não selecionado'
+                      : DateFormat('dd/MM/yyyy HH:mm').format(dataFim!)),
+                  onTap: () async {
+                    final date = await showDatePicker(
+                      context: context,
+                      initialDate: dataFim ?? DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(Duration(days: 365)),
+                    );
+                    if (date != null) {
+                      final time = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.fromDateTime(dataFim ?? DateTime.now()),
+                      );
+                      if (time != null) {
+                        setState(() {
+                          dataFim = DateTime(
+                            date.year,
+                            date.month,
+                            date.day,
+                            time.hour,
+                            time.minute,
+                          );
+                        });
+                      }
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancelar'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  final agendamentoAtualizado = Agendamento(
+                    id: agendamento.id,
+                    qualSala: salaId!,
+                    dataInicio: dataInicio!.toIso8601String(),
+                    dataFim: dataFim!.toIso8601String(),
+                  );
+                  await _agendamentosService.atualizarAgendamento(agendamentoAtualizado);
+                  Navigator.pop(context);
+                  _carregarDados();
+                  _mostrarSucesso('Agendamento atualizado com sucesso!');
+                } catch (e) {
+                  _mostrarErro(ErrorHandler.extrairMensagemErro(e));
+                }
+              },
+              child: const Text('Salvar'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   void _deletarAgendamento(Agendamento agendamento) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Confirmar Exclusão'),
+        title: const Text('Tem certeza?'),
         content: Text(
             'Deseja deletar o agendamento de ${_obterNomeSala(agendamento.qualSala)}?'),
         actions: [
@@ -280,9 +411,22 @@ class _AgendamentosScreenState extends State<AgendamentosScreen> {
                             ),
                           ],
                         ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () => _deletarAgendamento(agendamento),
+                        trailing: PopupMenuButton(
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: const Text('Editar'),
+                              onTap: () =>
+                                  Future.delayed(Duration.zero,
+                                      () => _abrirDialogEditar(agendamento)),
+                            ),
+                            PopupMenuItem(
+                              child: const Text('Deletar',
+                                  style: TextStyle(color: Colors.red)),
+                              onTap: () =>
+                                  Future.delayed(Duration.zero,
+                                      () => _deletarAgendamento(agendamento)),
+                            ),
+                          ],
                         ),
                       ),
                     );
